@@ -4,7 +4,6 @@
 #include <iostream>
 #include "vector.hh"
 
-
 class Rectangle
 {
 
@@ -24,11 +23,44 @@ public:
 
     Vector &operator[](int index);
 
+    bool operator==(const Rectangle &re) const;
+
+    bool operator!=(const Rectangle &re) const;
+
     void translation(const Vector &vector);
 
     void length();
-
 };
+/******************************************************************************
+ |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Argumenty:                                                                |
+ |      this - macierz, czyli pierwszy skladnik porownania,                   |
+ |      m - macierz, czyli drugi skladnik porownania.                         |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Rectangle::operator!=(const Rectangle &re) const
+{
+    return !(*this == re);
+}
+/******************************************************************************
+ |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Argumenty:                                                                |
+ |      this - macierz, czyli pierwszy skladnik porownania,                   |
+ |      m - macierz, czyli drugi skladnik porownania.                         |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Rectangle::operator==(const Rectangle &re) const
+{
+    bool wynik = true;
+    for (int i = 0; i < SIZE_VERTEX; i++)
+    {
+        if ((size[i] != re.size[i]))
+            wynik = false;
+    }
+    return wynik;
+}
 /******************************************************************************
  |  Realizuje prownanie przeciwleglych bokow prostokata                       |
  |  Argumenty:                                                                |
@@ -172,7 +204,7 @@ Vector &Rectangle::operator[](int index)
     return size[index];
 }
 /******************************************************************************
- |  Przeciazenie operatora >>                                                 |
+ |  Przeciazenie operatora <<                                                 |
  |  Argumenty:                                                                |
  |      out - strumien wyjsciowy,                                             |
  |      tmp - prostokąt.                                                      |
