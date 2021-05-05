@@ -32,22 +32,21 @@ public:
     void length();
 };
 /******************************************************************************
- |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Realizuje porownanie dwoch prostokotow.                                   |
  |  Argumenty:                                                                |
- |      this - macierz, czyli pierwszy skladnik porownania,                   |
- |      m - macierz, czyli drugi skladnik porownania.                         |
+ |      this - prostokat, czyli pierwszy skladnik porownania,                 |
+ |      m - prostokat, czyli drugi skladnik porownania.                       |
  |  Zwraca:                                                                   |
  |      TRUE lub FALSE.                                                       |
  */
 bool Rectangle::operator!=(const Rectangle &re) const
 {
     return !(*this == re);
-}
 /******************************************************************************
- |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Realizuje porownanie dwoch prostokotow.                                   |
  |  Argumenty:                                                                |
- |      this - macierz, czyli pierwszy skladnik porownania,                   |
- |      m - macierz, czyli drugi skladnik porownania.                         |
+ |      this - prostokat, czyli pierwszy skladnik porownania,                 |
+ |      m - prostokat, czyli drugi skladnik porownania.                       |
  |  Zwraca:                                                                   |
  |      TRUE lub FALSE.                                                       |
  */
