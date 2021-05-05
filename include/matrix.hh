@@ -1,5 +1,3 @@
-#pragma once
-
 #include "size.hh"
 #include "vector.hh"
 #include "rectangle.hh"
@@ -20,9 +18,13 @@ public:
 
     Vector operator*(Vector tmp); // Operator mnożenia przez wektor
 
-    Rectangle operator*(Rectangle tmp);
-    
-    Matrix operator+(Matrix tmp);
+    Rectangle operator*(Rectangle tmp); // Operator mnozenia macierzy
+
+    Matrix operator+(Matrix tmp); // Operator dodawnia macierzy
+
+    bool operator==(const Matrix &m) const; // Operator porownania macierzy
+
+    bool operator!=(const Matrix &m) const; //Operator porownania macierzy
 
     double &operator()(unsigned int row, unsigned int column);
 
@@ -30,7 +32,40 @@ public:
 
     void Calculate(double kat);
 };
+/******************************************************************************
+ |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Argumenty:                                                                |
+ |      this - macierz, czyli pierwszy skladnik porownania,                   |
+ |      m - macierz, czyli drugi skladnik porownania.                         |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Matrix::operator!=(const Matrix &m) const
+{
+    return !(*this == m);
+}
+/******************************************************************************
+ |  Realizuje porownanie dwoch macierzy.                                      |
+ |  Argumenty:                                                                |
+ |      this - macierz, czyli pierwszy skladnik porownania,                   |
+ |      m - macierz, czyli drugi skladnik porownania.                         |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Matrix::operator==(const Matrix &m) const
+{
+    bool wynik = true;
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
 
+            if ((value[i][j] != m.value[i][j]))
+                wynik = false;
+        }
+    }
+    return wynik;
+}
 std::istream &operator>>(std::istream &in, Matrix &mat);
 
 std::ostream &operator<<(std::ostream &out, Matrix const &mat);
