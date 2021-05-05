@@ -2,6 +2,7 @@
 
 #include "size.hh"
 #include <iostream>
+#include <cmath>
 
 class Vector
 {
@@ -24,22 +25,55 @@ public:
 
     const double &operator[](int index) const;
 
+    bool operator==(const Vector &v) const;
+
+    bool operator!=(const Vector &v) const;
+
     double &operator[](int index);
 
     double length(const Vector &v);
 };
-
+/******************************************************************************
+ |  Realizuje porownanie dwoch wektorow.                                      |
+ |  Argumenty:                                                                |
+ |      this - vector, czyli pierwszy skladnik porownania,                    |
+ |      v- vector, czyli drugi skladnik porownania.                           |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Vector::operator!=(const Vector &v) const
+{
+    return !(*this == v);
+}
+/******************************************************************************
+ |  Realizuje porownanie dwoch wektorow.                                      |
+ |  Argumenty:                                                                |
+ |      this - vector, czyli pierwszy skladnik porownania,                    |
+ |      v- vector, czyli drugi skladnik porownania.                           |
+ |  Zwraca:                                                                   |
+ |      TRUE lub FALSE.                                                       |
+ */
+bool Vector::operator==(const Vector &v) const
+{
+    bool wynik = true;
+    for (int i = 0; i < SIZE; i++)
+    {
+        if ((size[i] != v.size[i]))
+            wynik = false;
+    }
+    return wynik;
+}
 std::ostream &operator<<(std::ostream &out, Vector const &tmp);
 
 std::istream &operator>>(std::istream &in, Vector &tmp);
 
- double Vector::length(const Vector &v)
- {
-     double suma=0;
-     for(int i=0; i<SIZE; i++)
-        suma+=pow(size[i]-v[i],2);
+double Vector::length(const Vector &v)
+{
+    double suma = 0;
+    for (int i = 0; i < SIZE; i++)
+        suma += pow(size[i] - v[i], 2);
     return sqrt(suma);
- }
+}
 /******************************************************************************
  |  Konstruktor klasy Vector.                                                 |
  |  Argumenty:                                                                |
@@ -186,10 +220,12 @@ double &Vector::operator[](int index)
  */
 std::ostream &operator<<(std::ostream &out, Vector const &tmp)
 {
-    for (int i = 0; i < SIZE; ++i)
-    {
+
+    for (int i = 0; i < SIZE - 1; i++)
         out << tmp[i] << " ";
-    }
+
+    out << tmp[SIZE - 1];
+
     return out;
 }
 
@@ -204,6 +240,11 @@ std::istream &operator>>(std::istream &in, Vector &tmp)
     for (int i = 0; i < SIZE; ++i)
     {
         in >> tmp[i];
+        if (in.fail())
+        {
+            tmp[0] = 0;
+            tmp[1] = 0;
+        }
     }
     std::cout << std::endl;
     return in;
